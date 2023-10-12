@@ -116,7 +116,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'myapp/static/images/'
+STATIC_URL = 'myapp/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -129,3 +129,6 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_URL = ''  # URL where the login page is located
 LOGIN_REDIRECT_URL = 'home/'  # URL where users are redirected after login
+
+TIME_ZONE = 'Africa/Nairobi'
+USE_TZ = True
