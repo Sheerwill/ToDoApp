@@ -6,6 +6,3 @@ from django.utils import timezone
 class ToDoModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     entry = models.CharField(max_length=100)
-    date = models.DateField(default=timezone.now)
-    time = models.TimeField(default=timezone.now)
-

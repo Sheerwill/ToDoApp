@@ -7,23 +7,35 @@
     
     <title>Document</title>
 </head>
-<body class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container">
+<body class="vh-100">
+    <div class="container">        
         <div class="row">
-            <div class="col-12">
-                <h1>What I'll do: </h1>
+            <div class="col-12 text-center">
+                <h1 style="display: inline;">Entries: </h1>                
+                    <form method="post" class="form-group" style="display: inline;">                    
+                        {% csrf_token %}
+                        <span>{{form.entry}}</span>                    
+                        <button type="submit" class="btn btn-primary">add</button>
+                    </form>                                
+            </div>            
+        </div>
+        <div class = "row">
+            <div class="col-12 text-center">
+                <ul class = "list-unstyled">
+                    {% for item in todo_items %}
+                    <li class="mb-3">
+                        {{ item.entry }}
+                        <button class="btn btn-danger" onclick="removeEntry(this)">Done</button>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <form method="post" class="form-group">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">add</button>
-                </form>
-            </div>
+        <div class="row mb-3" id="entryList">
         </div>
     </div>
+    {% load static %}
+    <script src = "{% static 'script/app.js' %}"></script>
 </body>
 
 </html>
