@@ -23,9 +23,12 @@ def home(request):
             return HttpResponse(status=201)
         else:
             raise Http404('Bad request')
+    #elif request.method == 'DELETE':
+        
     else:
         form = ToDoForm()
     # Retrieve to-do items for the current user from the database
     todo_items = ToDoModel.objects.filter(user=request.user)
     return render(request, 'home.html', {"form": form, "todo_items": todo_items})
+
         

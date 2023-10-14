@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.querySelector('form');
-    var entryList = document.querySelector('.row'); // Select the second row as the container
+    var entryList = document.querySelector('.list-unstyled');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (entryValue.trim()) {
             // Create a new entry element
-            var entryItem = document.createElement('div');
-            entryItem.classList.add('col-12', 'text-center');
-            entryItem.innerHTML = `
-                <span>${entryValue}</span>
-                <button class="btn btn-danger">Delete</button>
+            var listItem = document.createElement('li');
+            listItem.classList.add('mb-3');
+            listItem.innerHTML = `
+                ${entryValue}
+                <button class="btn btn-danger" onclick="removeEntry(this)">Done</button>
             `;
-            entryItem.classList.add("mb-3");
-            entryList.appendChild(entryItem);
+            
+            entryList.insertBefore(listItem, entryList.firstChild);
 
             // Submit the form to the server
             submitForm(form);
