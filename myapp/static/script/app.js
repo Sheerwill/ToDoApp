@@ -12,8 +12,7 @@ function getCSRFToken() {
     return "";
 }
 
-function removeEntry(button) {
-    console.log('removeEntry function called');
+function removeEntry(button) {    
     // Remove the entry element when the delete button is clicked
     var entryList = document.querySelector('.list-unstyled');
     var listItem = button.parentElement;
@@ -37,8 +36,7 @@ function deleteEntryOnServer(itemId) {
             // Handle a successful response from the server
             console.log('Server response:', xhr.status);
         } else {
-            // Handle errors or other status codes
-            console.log('Sure');
+            // Handle errors or other status codes            
             console.error('Server error:', xhr.status);
         }
     };
@@ -56,16 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var entryValue = document.querySelector('input[name="entry"]').value;
 
         if (entryValue.trim()) {
-            // Create a new entry element
-            //var listItem = document.createElement('li');
-            //listItem.classList.add('mb-3');
-            //listItem.setAttribute('data-id', item.id);
-            //listItem.innerHTML = `
-               // ${entryValue}
-                //<button class="btn btn-danger" onclick="removeEntry(this)">Done</button>
-           // `;
-            
-            //entryList.insertBefore(listItem, entryList.firstChild);
 
             // Submit the form to the server
             submitForm(form);
@@ -128,8 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
         entries.forEach(function(entry) {
             var listItem = document.createElement('li');
             listItem.classList.add('mb-3');
-            listItem.setAttribute('data-id', entry.id);
-            console.log(entry.id);
+            listItem.setAttribute('data-id', entry.id);            
     
             // Display the entry text
             listItem.innerText = entry.entry;
