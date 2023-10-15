@@ -6,6 +6,10 @@ from .forms import ToDoForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import ToDoModel
+from django.http import JsonResponse
+from rest_framework import viewsets, filters
+from .serializers import ToDoModelSerializer
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class CustomLoginView(LoginView):
@@ -14,7 +18,7 @@ class CustomLoginView(LoginView):
 
 @login_required
 def home(request):
-    if request.method == 'POST':
+    '''if request.method == 'POST':
         form = ToDoForm(request.POST)
         if form.is_valid():
             new_todo = form.save(commit=False)
@@ -22,13 +26,33 @@ def home(request):
             new_todo.save()
             return HttpResponse(status=201)
         else:
-            raise Http404('Bad request')
-    #elif request.method == 'DELETE':
+            raise Http404('Bad request')    
         
-    else:
-        form = ToDoForm()
-    # Retrieve to-do items for the current user from the database
-    todo_items = ToDoModel.objects.filter(user=request.user)
+    else:'''
+    form = ToDoForm()    
+    todo_items = ToDoModel.objects.filter(user=request.user).order_by('-id') 
     return render(request, 'home.html', {"form": form, "todo_items": todo_items})
+
+'''@login_required
+def delete_todo(request, todo_id):
+    try:
+        todo_item = ToDoModel.objects.get(id=todo_id, user=request.user)
+        todo_item.delete()
+        return JsonResponse({"message": "Todo item deleted successfully."}, status=200)
+    except ToDoModel.DoesNotExist:
+        return JsonResponse({"error": "Todo item not found."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": "An error occurred while deleting the todo item."}, status=500)'''
+
+class ToDoModelViewSet(viewsets.ModelViewSet):
+    queryset = ToDoModel.objects.all()
+    serializer_class = ToDoModelSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id', 'user', 'entry']
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # Set the user field of the model to the currently logged-in user
+        serializer.save(user=self.request.user)
 
         

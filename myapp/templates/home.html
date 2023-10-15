@@ -23,7 +23,7 @@
             <div class="col-12 text-center">
                 <ul class = "list-unstyled">
                     {% for item in todo_items %}
-                    <li class="mb-3">
+                    <li class="mb-3" data-id="{{ item.id }}">
                         {{ item.entry }}
                         <button class="btn btn-danger" onclick="removeEntry(this)">Done</button>
                     </li>

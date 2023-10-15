@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zdn0qijp0-azryipm(qi=6e@5k05rwft&_67vs*2%*7g#y1!^b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,15 @@ LOGIN_REDIRECT_URL = 'home/'  # URL where users are redirected after login
 
 TIME_ZONE = 'Africa/Nairobi'
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        # ... other permission classes
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # ... other authentication classes
+    ],
+}
